@@ -1,0 +1,23 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: pode-2
+  namespace: argocd
+  resourceVersion: "522915"
+  uid: c28a45e7-9c66-4130-8500-9e004c848723
+spec:
+  destination:
+    namespace: default
+    server: https://kubernetes.default.svc
+  project: default
+  source:
+    path: kubernetes
+    repoURL: https://github.com/gabrmendes/alura-git.git
+    targetRevision: HEAD
+  #Politica de sincronização
+  syncPolicy:
+    syncOptions:
+    - CreateNamespace=true
+    automated:
+      selfHeal: true #Define que as alterações atualizem
+      prune: true #Elimina os objetos invalidos (https://kubernetes.io/docs/tasks/manage-kubernetes-objects/declarative-config/)
